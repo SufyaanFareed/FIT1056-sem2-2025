@@ -66,3 +66,14 @@ find_student_by_id(3)
 front_desk_lookup("zakaria")
 front_desk_lookup("francois")
 #---------------------
+
+The following are instructions to test all the merged fragments together:
+
+#TESTING Fragment4:
+#--------------------
+#Test all possible menu options and check to see if they perform the intended functiions
+#To test option 2 in further detail, enter a valid student_id and check to see if front_desk_enrol is run
+#then run option 2 again, this time entering a non-numerical string value such as 'abc'. This should cause an error that would cause the except block to run.
+#Enter an option not on the menu to see if the else block works
+#Enter 'q' or 'Q' to check if the program ends as expected
+#--------------------
