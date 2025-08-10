@@ -45,3 +45,24 @@ print()
 list_teachers()
 list_students()
 #--------------------
+
+Copy and paste the following code after having merged fragments 1,2 and 3 together:
+
+#CODE FOR TESTING Fragment3:
+#---------------------
+front_desk_register("sufyaan","piano")
+front_desk_register("zakaria","guitar")
+front_desk_register("Layla","drums")
+
+#Testing all possible paths of the 'if...' statement in the front_desk_enrol procedure
+front_desk_enrol(2,"flute")
+front_desk_enrol(7,"trumpet")
+
+#Testing all possible return options of the function find_student_by_id
+find_student_by_id(9)
+find_student_by_id(3)
+
+
+front_desk_lookup("zakaria")
+front_desk_lookup("francois")
+#---------------------
