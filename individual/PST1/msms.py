@@ -1,3 +1,5 @@
+#GITHUB LINK: https://github.com/SufyaanFareed
+
 class Student:
     def __init__(self, student_id, name):
         self.id = student_id
@@ -101,6 +103,7 @@ def main():
         print("3. Lookup Student or Teacher")
         print("4. (Admin) List all Students")
         print("5. (Admin) List all Teachers")
+        print("6. Register New Teacher")
         print("q. Quit")
         
         choice = input("Enter your choice: ")
@@ -123,6 +126,11 @@ def main():
             list_students()
         elif choice == '5':
             list_teachers()
+        elif choice == '6':
+            #Register new teacher option
+            teacher_Name=input("Enter Teacher name: ")
+            teacher_Speciality=input("Enter Teacher speciality: ")
+            add_teacher(teacher_Name,teacher_Speciality)
         elif choice.lower() == 'q':
             print("Exiting program. Goodbye!")
             break
