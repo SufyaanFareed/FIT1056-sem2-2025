@@ -21,7 +21,9 @@ class ScheduleManager:
                 data = json.load(f)
                 # TODO: Load students, teachers, and courses as before.
                 # ...
-
+                self.students = data.get("students",[])       
+                self.teachers = data.get("teachers", [])
+                self.teachers = data.get("courses", [])         
                 # TODO: Correctly load the attendance log.
                 # Use .get() with a default empty list to prevent errors if the key doesn't exist.
                 self.attendance_log = data.get("attendance", [])
