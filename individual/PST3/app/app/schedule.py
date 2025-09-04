@@ -1,13 +1,11 @@
 import json
 import datetime
-from app.student import StudentUser
-from app.teacher import TeacherUser, Course
+from app.app.student import StudentUser
+from app.app.teacher import TeacherUser, Course
 
 class ScheduleManager:
     """The main controller for all business logic and data handling."""
-    #The file path won't work unless  you cd to the working directory where msms.json is located
-    #You could also just specify the absolute path but that'll only work on your computer
-    def __init__(self, data_path="data/msms.json"):
+    def __init__(self, data_path="data/data/msms.json"):
         self.data_path = data_path
         self.students = []
         self.teachers = []
@@ -33,7 +31,7 @@ class ScheduleManager:
                     self.teachers.append(TeacherUser(this_teacher["id"],this_teacher["name"],this_teacher["speciality"]))
                 
                 for this_course in data.get("courses",[]):
-                    self.courses.append(Course(this_course["id"],this_course["name"],this_course["instrument"],this_course["teacher_id"]))         
+                    self.courses.append(Course(this_course["id"],this_course["name"],this_course["instrument"],this_course["teacher_id"],this_course["enrolled_student_ids"],this_course["lessons"]))         
                 # TODO: Correctly load the attendance log.
                 # Use .get() with a default empty list to prevent errors if the key doesn't exist.
                 self.attendance_log = data.get("attendance", [])
@@ -43,8 +41,9 @@ class ScheduleManager:
     def _save_data(self):
         """Converts object lists back to dictionaries and saves to JSON."""
         # TODO: Create a 'data_to_save' dictionary.
-        #Can remove s.__dict__ bcz they are already dictionaries
         data_to_save = {
+            #Create a dictionary for each object's attributes in self.students list
+            #each dictionary is then added to a list which is the value for the key ""students"
             "students": [s.__dict__ for s in self.students],
             "teachers": [t.__dict__ for t in self.teachers],
             "courses": [c.__dict__ for c in self.courses],
@@ -87,3 +86,47 @@ class ScheduleManager:
         for course in self.courses:
             if course.get_course_id()==this_id:
                 return course
+            
+    def lessons_for_the_day(self,day):
+        days_lessons=[]
+        for course in self.courses:
+            for lesson in course.get_lessons_list():
+                if lesson["day"]==day:
+                    days_lessons.append(lesson)
+        return days_lessons
+
+    def replace_course(self,student_id,from_course_id,to_course_id):
+        #Ensure that the student of mentioned student_id exists 
+        if self.find_student_by_id(student_id):
+            #Ensure that that from_course_id and to_course_id exist
+            if self.find_course_by_id(from_course_id) and self.find_course_by_id(to_course_id):
+                #store the returned student object in this_student
+                this_student=self.find_student_by_id(student_id)
+                #Loop through this_student's enrolled courses list until a match is found
+                for course_index in range(len(this_student.get_enrolled_course_ids())):
+                    if (this_student.get_enrolled_course_ids())[course_index] == from_course_id:
+                        #replace this course (from_course_id) with the new course (to_course_id) and exit loop
+                        (this_student.get_enrolled_course_ids())[course_index]=to_course_id
+                        break
+                
+                #store the returned course object in this_course
+                this_course=self.find_course_by_id(from_course_id)
+                #Loop through this_course's enrolled students list until a match is found
+                for course_index in range(len(this_course.get_enrolled_student_ids())):
+                    if (this_course.get_enrolled_student_ids())[course_index] == student_id:
+                        #Unenrol the student from this course
+                        (this_course.get_enrolled_student_ids()).pop(course_index)
+                        break
+                
+                #store the returned course object in this_course
+                this_course=self.find_course_by_id(to_course_id)
+                #Enrol the student in this course
+                (this_course.get_enrolled_student_ids()).append(student_id)
+
+                self._save_data()
+
+
+
+        
+
+                
