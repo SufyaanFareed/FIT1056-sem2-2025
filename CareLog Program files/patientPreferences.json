@@ -1,0 +1,19 @@
+{
+    "1": {
+        "preferred_visiting_days": [
+            "mon",
+            "tue",
+            "sat"
+        ],
+        "preferred_visiting_hours": "7 - 8 pm",
+        "language": "eng"
+    },
+    "2": {
+        "preferred_visiting_days": [
+            "wed",
+            "fri"
+        ],
+        "preferred_visiting_hours": "2 - 3 pm",
+        "language": "eng"
+    }
+}

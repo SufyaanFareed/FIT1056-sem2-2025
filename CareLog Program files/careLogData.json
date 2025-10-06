@@ -1,0 +1,91 @@
+{
+    "doctors": [
+        {
+            "name": "Alice Johnson",
+            "user_id": 1,
+            "password": "Alice123J0hn",
+            "assigned_patients": [
+                4
+            ]
+        },
+        {
+            "name": "Bob Williams",
+            "user_id": 2,
+            "password": "BobPASSWORD",
+            "assigned_patients": []
+        },
+        {
+            "name": "sufyaan",
+            "user_id": 3,
+            "password": "suiii1",
+            "assigned_patients": []
+        }
+    ],
+    "nurses": [
+        {
+            "name": "Evelyn Keys",
+            "user_id": 1,
+            "password": "Piano",
+            "assigned_patients": [
+                4
+            ],
+            "patient_logs": {
+                "4": []
+            }
+        },
+        {
+            "name": "David Fret",
+            "user_id": 2,
+            "password": "Guitar",
+            "assigned_patients": [],
+            "patient_logs": {}
+        },
+        {
+            "name": "Max Verstappen",
+            "user_id": 3,
+            "password": "1amSPeeD",
+            "assigned_patients": [],
+            "patient_logs": {}
+        }
+    ],
+    "admins": [
+        {
+            "name": "Liam Bernard",
+            "user_id": 1,
+            "password": "DyNBVg=="
+        },
+        {
+            "name": "Ari Fring",
+            "user_id": 2,
+            "password": "FCk9LB8uNQE="
+        },
+        {
+            "name": "Mustafa Jason",
+            "user_id": 3,
+            "password": "CjUhJAEqIg=="
+        }
+    ],
+    "patients": [
+        {
+            "name": "Susan Mimsbury",
+            "user_id": 1,
+            "password": "1234"
+        },
+        {
+            "name": "Armin Pecsi",
+            "user_id": 2,
+            "password": "motoMOTO"
+        },
+        {
+            "name": "Azalea Higgins",
+            "user_id": 3,
+            "password": "acceptME2"
+        },
+        {
+            "name": "mel",
+            "user_id": 4,
+            "password": "mel"
+        }
+    ],
+    "Doctorless_patients": []
+}
