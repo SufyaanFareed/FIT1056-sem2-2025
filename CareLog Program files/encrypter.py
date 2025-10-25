@@ -63,7 +63,7 @@ def decrypt(text: str) -> str:
     return decrypted_message
     
 if __name__=="__main__":
-    msg = "ITSAMEE"
+    msg = "LB33"
     enc = encrypt(msg)
     dec = decrypt(enc)
     print("Encrypted:", enc)

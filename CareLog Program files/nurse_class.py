@@ -1,18 +1,15 @@
 from user_base_class import user
-#from brain import SystemManager
 from datetime import datetime 
 
 class nurse(user):
-    #CHANGE BY ME in instantiation parameters
     def __init__(self, user_id, name, password, patient_logs, assigned_patients=[]):
         super().__init__(user_id, name, password)
         self.assigned_patients = assigned_patients
         self.patient_logs = patient_logs
-        #self.manager = SystemManager()
 
     # checks for if a patient exists in the system database (list)
     def _patient_exists(self, patient_id):
-        #original: in self.manager.patients:
+        """Checks if a patient exists or not and returns a boolean value"""
         for this_id in self.assigned_patients:
             if this_id == patient_id:
                 return True
@@ -20,9 +17,14 @@ class nurse(user):
 
     # checks if the patient exists before editing it, if patient log doesn't exist then make one
     def add_patient_log(self, patient_id, log_entry):
+        """
+        Creates and/or adds a patient log to an existing list which is then put into a dictionary of all patient logs.\n
+        Returns a success or failure statement.
+        """
         if not self._patient_exists(patient_id):
             return f"Patient ID {patient_id} Not Found"
 
+        patient_id = str(patient_id)
         #caution check in case patient_id logs doesnt exist
         if patient_id not in self.patient_logs:
             self.patient_logs[patient_id] = []
@@ -42,6 +44,10 @@ class nurse(user):
 
     # delete patient method, checks if patient exists before deleting
     def delete_patient_log(self, patient_id, log_index):
+        """
+        Deletes a patient log from a patient's logs list.\n
+        Returns a success or failure statement.
+        """
         #checks if patient id exists
         if not self._patient_exists(patient_id):
             return f"Patient ID {patient_id} Not Found"
@@ -58,6 +64,10 @@ class nurse(user):
 
     # editing patient log, checks if patient exists before editing
     def edit_patient_log(self, patient_id, log_index, new_entry):
+        """
+        Edits a patient log from a patient's logs list.\n
+        Returns a success or failure statement.
+        """
         if not self._patient_exists(patient_id):
             return f"Patient ID {patient_id} Not Found"
 
@@ -82,6 +92,10 @@ class nurse(user):
 
     # generate a list of summary reports, but first check if patient id exists in database
     def generate_patient_summary_report(self, patient_id):
+        """
+        Returns a formatted patient's log list
+        """
+
         if not self._patient_exists(patient_id):
             return f"Patient ID {patient_id} Not Found"
 
@@ -99,3 +113,23 @@ class nurse(user):
 
     def nurse_notifications(self):
         pass
+
+    def show_assigned_patients(self, patients_list):
+        """Returns a list of the objects assigned patients"""
+        assigned_patients_list = []
+
+        for this_patient_ID in self.assigned_patients:
+            for this_patient_object in patients_list:
+                if this_patient_ID == this_patient_object.user_id:
+                    assigned_patients_list.append(this_patient_object)
+                    break
+
+        return assigned_patients_list
+    
+    #Function that returns a python list of patient_logs for a specified patient_id
+    def get_patient_log_history(self, patient_ID):
+        #Try block since the patient_id (the key) might not exist in the dictionary patient_logs
+        try:
+            return self.patient_logs[str(patient_ID)]
+        except KeyError:
+            return None

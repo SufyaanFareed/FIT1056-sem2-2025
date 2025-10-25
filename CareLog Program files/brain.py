@@ -2,7 +2,8 @@
 import json
 #encrypter has been included here mainly for demonstration/proof of concept but has not been fully implemented throughout the entire program
 import encrypter as e
-from user_base_class import user, doctor
+from user_base_class import user
+from doctor_class import doctor
 from patient_class import patient
 from admin_class import admin
 from nurse_class import nurse
@@ -13,16 +14,17 @@ class SystemManager:
     def __init__(self, data_path1="careLogData.json", data_path2="patientPreferences.json"):
         self.data_path1 = data_path1
         self.data_path2 = data_path2
+        #These lists store objects of each user_type
         self.doctors = []
         self.nurses = []
         self.admins = []
         self.patients = []
         #This is a dictionary to store dictionaries of patient preferences
         self.patient_preferences = {}
-        #New addition
         #This list stores all patients that have not been assigned doctors and nurses
         self.patients_without_doctors=[]
 
+        #Load data into memory when a system_manager object is instantiated
         self._load_data()
 
     def _load_data(self):
@@ -35,7 +37,7 @@ class SystemManager:
 
                 for this_doctor in data.get("doctors",[]): 
                     #Instantiate each doctor using the doctor sub-class and append the doctor to the self.doctors list   
-                    self.doctors.append(doctor(this_doctor["user_id"],this_doctor["name"],this_doctor["password"],assigned_patients=this_doctor["assigned_patients"])) 
+                    self.doctors.append(doctor(this_doctor["user_id"],this_doctor["name"],this_doctor["password"],corresponding_nurse=this_doctor["corresponding_nurse"],assigned_patients=this_doctor["assigned_patients"])) 
                 
                 for this_nurse in data.get("nurses",[]):
                     self.nurses.append(nurse(this_nurse["user_id"],this_nurse["name"],this_nurse["password"],this_nurse["patient_logs"],assigned_patients=this_nurse["assigned_patients"]))
@@ -47,7 +49,6 @@ class SystemManager:
                 for this_patient in data.get("patients",[]):
                     self.patients.append(patient(this_patient["user_id"],this_patient["name"],this_patient["password"]))
 
-                #New addition
                 for this_patient in data.get("Doctorless_patients",[]):
                     self.patients_without_doctors.append(patient(this_patient["user_id"],this_patient["name"],this_patient["password"]))                         
 
@@ -84,7 +85,6 @@ class SystemManager:
             "nurses": [n.__dict__ for n in self.nurses],
             "admins": [a.__dict__ for a in self.admins],
             "patients": [p.__dict__ for p in self.patients],
-            #New addition
             "Doctorless_patients": [dp.__dict__ for dp in self.patients_without_doctors]
         }
 
@@ -100,7 +100,7 @@ class SystemManager:
     #The function then verifies the user and
     #returns the user object if log in is successful otherwise 'None' is returned
     def log_in(self, entered_ID, entered_password, user_list):
-        """Authenticates user"""
+        """Authenticates user and then returns a user object"""
         for this_user in user_list:
             if this_user.user_id==entered_ID and this_user.password==entered_password:
                 return this_user
@@ -109,28 +109,12 @@ class SystemManager:
     #Procedure that calls _saves_data() to save changes to the JSON file when the user logs out
     def log_out(self):
         """Calles _save_data() to save changes to JSON file"""
-        #logged_in_user.password=e.encrypt(logged_in_user.password)
         self._save_data()
-
-    #Function that takes in a name and user object (Doctor, admin, patient or nurse) and changes its name
-    #Returns True if the change succesful otherwise False is returned
-    def change_name(self, new_name, logged_in_user):
-        if logged_in_user:
-            logged_in_user.name=new_name
-            return True
-        return False
-    
-    #Similar to Change_name()
-    def change_password(self, new_password, logged_in_user):
-        if logged_in_user:
-            logged_in_user.password=new_password
-            return True
-        return False
 
     #Function that takes in a user_name, password and a list of objects depending on the user's type
     #The function returns the new user object as well as the object's ID after appending it to the appropriate list (doctors, nurses etc)
-    #The returned user object is used to automatically login the new user so that they dont have to login separately
     def add_user(self, entered_name, entered_password, user_list):
+        """Adds a user object to the appropriate user list and returns the new user object and its user ID"""
         #Obtain the ID of the last object in the list and increment it by 1 to give the new user an ID
         user_id=user_list[-1].user_id + 1
 

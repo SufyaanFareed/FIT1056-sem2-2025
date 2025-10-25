@@ -1,12 +1,12 @@
 {
     "1": {
         "preferred_visiting_days": [
-            "mon",
-            "tue",
-            "sat"
+            "Tuesday",
+            "Friday",
+            "Saturday"
         ],
-        "preferred_visiting_hours": "7 - 8 pm",
-        "language": "eng"
+        "preferred_visiting_hours": "19:00 - 20:00",
+        "language": "hindi"
     },
     "2": {
         "preferred_visiting_days": [
@@ -15,5 +15,14 @@
         ],
         "preferred_visiting_hours": "2 - 3 pm",
         "language": "eng"
+    },
+    "5": {
+        "preferred_visiting_days": [
+            "Monday",
+            "Tuesday",
+            "Wednesday"
+        ],
+        "preferred_visiting_hours": "14:00 - 15:00",
+        "language": "turkish"
     }
 }

@@ -5,20 +5,30 @@
             "user_id": 1,
             "password": "Alice123J0hn",
             "assigned_patients": [
-                4
-            ]
+                4,
+                5,
+                6
+            ],
+            "patient_logs": {},
+            "corresponding_nurse": 1
         },
         {
             "name": "Bob Williams",
             "user_id": 2,
             "password": "BobPASSWORD",
-            "assigned_patients": []
+            "assigned_patients": [
+                7
+            ],
+            "patient_logs": {},
+            "corresponding_nurse": 2
         },
         {
             "name": "sufyaan",
             "user_id": 3,
             "password": "suiii1",
-            "assigned_patients": []
+            "assigned_patients": [],
+            "patient_logs": {},
+            "corresponding_nurse": null
         }
     ],
     "nurses": [
@@ -27,17 +37,27 @@
             "user_id": 1,
             "password": "Piano",
             "assigned_patients": [
-                4
+                4,
+                5,
+                6
             ],
             "patient_logs": {
-                "4": []
+                "4": [
+                    "1. [2025-10-18 20:06:10] Observation: testing",
+                    "2. [2025-10-18 20:33:46] new"
+                ],
+                "5": [
+                    "1. [2025-10-19 17:09:58] Observation: dsfdb"
+                ]
             }
         },
         {
             "name": "David Fret",
             "user_id": 2,
             "password": "Guitar",
-            "assigned_patients": [],
+            "assigned_patients": [
+                7
+            ],
             "patient_logs": {}
         },
         {
@@ -85,6 +105,21 @@
             "name": "mel",
             "user_id": 4,
             "password": "mel"
+        },
+        {
+            "name": "numan",
+            "user_id": 5,
+            "password": "seyit"
+        },
+        {
+            "name": "tj",
+            "user_id": 6,
+            "password": "tj"
+        },
+        {
+            "name": "sk",
+            "user_id": 7,
+            "password": "sk"
         }
     ],
     "Doctorless_patients": []

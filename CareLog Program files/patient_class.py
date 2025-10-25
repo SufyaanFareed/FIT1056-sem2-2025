@@ -1,16 +1,14 @@
 from user_base_class import user
 
 class patient(user):
-    """
-    This is a Simple Patient class for the CareLog Hospital Management System
-    """
-    
     def __init__(self, user_id, name, password):
-        # Basic information of the patient
         super().__init__(user_id, name, password)
-        
+
     #patients_preferences_dict is a dictionary of dictionaries of patient preferences (see the patientPreferences.json file)
     def set_preferences(self, visiting_days, visiting_hours, language, patients_preferences_dict):
+        """
+        Saves a patients preferences to a dictionary
+        """
 
         #Check the patient has already set their preferences
         #if they have, then access their dictionary and make the new changes
